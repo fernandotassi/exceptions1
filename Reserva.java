@@ -25,9 +25,19 @@ public class Reserva
 		long dife = out.getTime() - in.getTime();
 		return TimeUnit.DAYS.convert(dife, TimeUnit.MILLISECONDS);
 	}
-	public void upData(Date in, Date out)
+	public String upData(Date in, Date out)
 	{
-		this.in = in; this.out = out;
+		Date now = new Date();
+		if(in.before(now) || out.before(now))
+			{
+				return "erro2";
+			}
+			if(!out.after(in))
+			{
+				return "erro1";
+			}
+		    this.in = in; this.out = out;
+		    return null;
 	}
 	@Override
 	public String toString()

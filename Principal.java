@@ -30,23 +30,19 @@ public class Principal
 		    Reserva reserva = new Reserva(quarto, in, out);
 		    System.out.println(reserva);
 		    System.out.println("");
-		    Date naw = new Date();
+		    
 		    System.out.print("entrada: ");
 			in = sdf.parse(scan.next());
 			System.out.print("saída: ");
 			out = sdf.parse(scan.next());
 			
-			if(in.before(naw) || out.before(naw))
+			String erro = reserva.upData(in, out);
+			if(erro != null)
 			{
-				System.out.println("erro2");
-			}
-			else if(!out.after(in))
-			{
-				System.out.println("erro1");
+				System.out.println("Erro " + erro);
 			}
 			else
 			{
-				reserva.upData(in, out);
 				System.out.println(reserva);
 		    } 
 		 }
