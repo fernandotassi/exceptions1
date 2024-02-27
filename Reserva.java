@@ -11,8 +11,14 @@ public class Reserva
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
-	public Reserva(Integer quarto, Date in, Date out)
-	{this.quarto = quarto; this.in = in; this.out = out;}
+	public Reserva(Integer quarto, Date in, Date out) throws DominioExcecao
+	{
+		if(!out.after(in))
+		{
+			throw new DominioExcecao("erro2");
+		}
+		this.quarto = quarto; this.in = in; this.out = out;
+	}
 	
 	public Reserva(){}
 	
@@ -25,17 +31,18 @@ public class Reserva
 		long dife = out.getTime() - in.getTime();
 		return TimeUnit.DAYS.convert(dife, TimeUnit.MILLISECONDS);
 	}
-	public String upData(Date in, Date out)
+	public String upData(Date in, Date out) throws DominioExcecao
 	{
 		Date now = new Date();
 		if(in.before(now) || out.before(now))
 			{
-				return "erro2";
+				throw new DominioExcecao("erro1");
 			}
 			if(!out.after(in))
 			{
-				return "erro1";
+				throw new DominioExcecao("erro2");
 			}
+			
 		    this.in = in; this.out = out;
 		    return null;
 	}
